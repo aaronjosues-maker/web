@@ -1,0 +1,115 @@
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aventura Matemática Jurásica</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Roboto&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="start-screen">
+        <div class="start-content">
+            <h2>¡Prepara tu Expedición!</h2>
+            <p>Ingresa tu nombre y elige tu avatar de explorador.</p>
+            <input type="text" id="player-name-input" placeholder="Nombre del Paleontólogo" maxlength="15">
+            <div id="avatar-selection">
+                <img src="/trex.png" class="avatar-option" data-avatar="/trex.png" alt="Avatar T-Rex">
+                <img src="/triceratops.png" class="avatar-option" data-avatar="/triceratops.png" alt="Avatar Triceratops">
+            </div>
+            <button id="start-game-button" disabled>Comenzar Aventura</button>
+        </div>
+    </div>
+
+    <div id="level-select-screen" class="hidden">
+        <h2>Mapa de la Aventura</h2>
+        <div id="map-container">
+            <img src="map_background.png" alt="Mapa de la aventura" class="map-background">
+            <img id="player-marker" src="" alt="Marcador del jugador">
+            <div class="level-node" id="level-node-1" data-level="0">
+                <span>1</span>
+            </div>
+            <svg class="map-path" width="100%" height="100%">
+                <path id="path-1-2" d="M12% 50% C 25% 20%, 35% 20%, 48% 50%" stroke="rgba(255,255,255,0.4)" stroke-width="15" fill="none" stroke-dasharray="20,10" />
+                <path id="path-2-3" d="M52% 50% C 65% 80%, 75% 80%, 88% 50%" stroke="rgba(255,255,255,0.4)" stroke-width="15" fill="none" stroke-dasharray="20,10" />
+            </svg>
+            <div class="level-node locked" id="level-node-2" data-level="1">
+                <span>2</span>
+            </div>
+            <div class="level-node locked" id="level-node-3" data-level="2">
+                <span>3</span>
+            </div>
+        </div>
+        <p>¡Selecciona un nivel desbloqueado para comenzar!</p>
+    </div>
+
+    <div id="game-container" class="hidden">
+        <header>
+            <div id="player-info">
+                <img id="player-avatar" src="" alt="Player Avatar">
+                <span id="player-name"></span>
+            </div>
+            <h1 id="level-title">Nivel 1</h1>
+            <div id="score-board">
+                <p>Monedas: <span id="score">0</span> <img src="coin.png" class="score-icon" alt="Coin"></p>
+                <div id="music-control">
+                    <button id="music-toggle">🔊</button>
+                </div>
+            </div>
+        </header>
+
+        <main id="main-content">
+            <div id="dino-display">
+                <h2 id="dino-name">???</h2>
+                <img id="dino-image" src="dino_silueta.png" alt="Silueta de Dinosaurio">
+                <p id="dino-fact">Resuelve problemas para descubrir datos sobre este dinosaurio.</p>
+            </div>
+            <div id="problem-zone">
+                <div id="problem-card">
+                    <p id="problem-text">¡Bienvenido! Haz clic en "Siguiente Misión" para empezar.</p>
+                </div>
+                <div id="answer-options">
+                    <!-- Los botones de respuesta se generarán aquí -->
+                </div>
+                <button id="next-button">Siguiente Misión</button>
+            </div>
+        </main>
+    </div>
+
+    <div id="feedback-modal" class="hidden">
+        <div class="modal-content">
+            <span id="feedback-icon"></span>
+            <p id="feedback-text"></p>
+            <button id="close-modal">Cerrar</button>
+        </div>
+    </div>
+
+    <div id="level-end-modal" class="hidden">
+        <div class="modal-content">
+            <h2 id="level-end-title"></h2>
+            <p>Puntaje Obtenido: <span id="level-end-score"></span></p>
+            <p id="level-end-message"></p>
+            <button id="level-end-next-button">Continuar</button>
+        </div>
+    </div>
+
+    <div id="animation-container"></div>
+
+    <div id="end-screen" class="hidden">
+        <div class="end-content">
+            <h2>¡Aventura Completada!</h2>
+            <p><span id="final-player-name"></span>, has obtenido:</p>
+            <p class="final-score"><span id="final-score">0</span> 🪙</p>
+            <button id="play-again-button">Jugar de Nuevo</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>Esta app es creada con fines educativos por Giullianis Silva</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
