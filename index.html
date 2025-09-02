@@ -2,12 +2,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aventura Matemática Jurásica 5to°</title>
+    <title>Aventura Matemática Jurásica</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Roboto&display=swap" rel="stylesheet">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 </head>
 <body>
     <div id="start-screen">
@@ -16,8 +15,8 @@
             <p>Ingresa tu nombre y elige tu avatar de explorador.</p>
             <input type="text" id="player-name-input" placeholder="Nombre del Paleontólogo" maxlength="15">
             <div id="avatar-selection">
-                <img src="trex.png" class="avatar-option" data-avatar="trex.png" alt="Avatar T-Rex">
-                <img src="triceratops.png" class="avatar-option" data-avatar="triceratops.png" alt="Avatar Triceratops">
+                <img src="/trex.png" class="avatar-option" data-avatar="/trex.png" alt="Avatar T-Rex">
+                <img src="/triceratops.png" class="avatar-option" data-avatar="/triceratops.png" alt="Avatar Triceratops">
             </div>
             <button id="start-game-button" disabled>Comenzar Aventura</button>
         </div>
@@ -32,14 +31,21 @@
                 <span>1</span>
             </div>
             <svg class="map-path" width="100%" height="100%">
-                <path id="path-1-2" d="M12% 50% C 25% 20%, 35% 20%, 48% 50%" stroke="rgba(255,255,255,0.4)" stroke-width="15" fill="none" stroke-dasharray="20,10" />
-                <path id="path-2-3" d="M52% 50% C 65% 80%, 75% 80%, 88% 50%" stroke="rgba(255,255,255,0.4)" stroke-width="15" fill="none" stroke-dasharray="20,10" />
+                <path id="path-1-2" d="M12% 80% C 20% 40%, 30% 40%, 38% 80%" stroke="rgba(255,255,255,0.4)" stroke-width="15" fill="none" stroke-dasharray="20,10" />
+                <path id="path-2-3" d="M42% 80% C 50% 120%, 60% 120%, 68% 80%" stroke="rgba(255,255,255,0.4)" stroke-width="15" fill="none" stroke-dasharray="20,10" />
+                <path id="path-3-4" d="M72% 80% C 80% 40%, 90% 40%, 95% 60%" stroke="rgba(255,255,255,0.4)" stroke-width="15" fill="none" stroke-dasharray="20,10" />
             </svg>
             <div class="level-node locked" id="level-node-2" data-level="1">
                 <span>2</span>
             </div>
             <div class="level-node locked" id="level-node-3" data-level="2">
                 <span>3</span>
+            </div>
+             <div class="level-node locked" id="level-node-4" data-level="3">
+                <span>4</span>
+            </div>
+             <div class="level-node locked" id="level-node-5" data-level="4">
+                <span>5</span>
             </div>
         </div>
         <p>¡Selecciona un nivel desbloqueado para comenzar!</p>
@@ -106,11 +112,11 @@
         </div>
     </div>
 
-   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
-    <script src="script.js"></script>
+    <footer>
+        <p>-Giullianis Silva-Ana Sanchez-Esther Palacios</p>
+    </footer>
 
-     <footer>
-        <p>Giullianis Silva</p>
-           </footer>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>

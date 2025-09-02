@@ -48,8 +48,9 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentProblemIndex = 0;
     let currentLevelIndex = 0;
     let correctAnswersInLevel = 0;
+    let questionsAskedInLevel = 0;
     const QUESTIONS_PER_LEVEL = 4;
-    const MIN_SCORE_TO_PASS = 70; // 3 correct answers * 25 points = 75
+    const MIN_SCORE_TO_PASS = 75; // 3 correct answers * 25 points = 75
     let correctStreak = 0;
     let player = { name: '', avatar: '', unlockedLevels: 1 };
 
@@ -80,33 +81,54 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
 
     const levels = [
+        // Zona 1: Jungla de las Operaciones
         {
-            name: "Nivel 1: Operaciones Básicas",
+            name: "Nivel 1: Suma y Resta",
             problems: [
-                { question: "Un equipo de paleontólogos encontró 125 fósiles cada día durante 5 días. ¿Cuántos fósiles encontraron en total?", options: ["625", "525", "130", "600"], answer: "625" },
-                { question: "Si un Brachiosaurus come 150 kg de plantas al día, ¿cuántos kg comerá en una semana (7 días)?", options: ["1050 kg", "950 kg", "157 kg", "750 kg"], answer: "1050 kg" },
-                { question: "Hay 48 huevos de dinosaurio y se reparten en 4 incubadoras. ¿Cuántos huevos hay por incubadora?", options: ["12", "10", "44", "192"], answer: "12" },
-                { question: "En una manada de 35 Triceratops, 12 se van a beber agua. ¿Cuántos quedan?", options: ["23", "47", "25", "33"], answer: "23" }
+                { question: "Un equipo encontró 125 fósiles y luego otros 87. ¿Cuántos encontraron en total?", options: ["212", "202", "112", "222"], answer: "212" },
+                { question: "En una manada de 35 Triceratops, 12 se van a beber agua. ¿Cuántos quedan?", options: ["23", "47", "25", "33"], answer: "23" },
+                { question: "Si un nido tiene 54 huevos y nacen 38, ¿cuántos quedan por nacer?", options: ["16", "26", "92", "14"], answer: "16" },
+                { question: "Un explorador camina 250 metros y luego retrocede 75. ¿A qué distancia está del inicio?", options: ["175m", "325m", "225m", "150m"], answer: "175m" }
             ]
         },
         {
-            name: "Nivel 2: Fracciones y Decimales",
+            name: "Nivel 2: Multiplicación",
             problems: [
-                 { question: "¿Cuánto es 3/4 + 1/4?", options: ["1", "1/2", "3/8", "4/8"], answer: "1" },
+                { question: "Un Stegosaurus tiene 17 placas. Si hay 5 de ellos, ¿cuántas placas hay en total?", options: ["85", "75", "95", "22"], answer: "85" },
+                { question: "Si un Brachiosaurus come 150 kg de plantas al día, ¿cuántos kg comerá en una semana (7 días)?", options: ["1050 kg", "950 kg", "157 kg", "750 kg"], answer: "1050 kg" },
+                { question: "Un equipo de paleontólogos encontró 125 fósiles cada día durante 5 días. ¿Cuántos fósiles encontraron en total?", options: ["625", "525", "130", "600"], answer: "625" },
+                { question: "Una araña prehistórica tiene 8 patas. ¿Cuántas patas tienen 25 arañas?", options: ["200", "160", "258", "33"], answer: "200" }
+            ]
+        },
+        {
+            name: "Nivel 3: División",
+             problems: [
+                { question: "Hay 48 huevos de dinosaurio y se reparten en 4 incubadoras. ¿Cuántos huevos hay por incubadora?", options: ["12", "10", "44", "192"], answer: "12" },
+                { question: "Se recolectaron 120 amonitas y se guardan en cajas de 10. ¿Cuántas cajas se necesitan?", options: ["12", "10", "130", "110"], answer: "12" },
+                { question: "Un T-Rex recorre 90 km en 3 horas. ¿Cuántos km recorre por hora?", options: ["30 km", "93 km", "270 km", "60 km"], answer: "30 km" },
+                { question: "Un grupo de 6 exploradores comparte equitativamente 78 raciones. ¿Cuántas raciones recibe cada uno?", options: ["13", "12", "14", "72"], answer: "13" }
+            ]
+        },
+        // Zona 2: Volcán de las Fracciones
+        {
+            name: "Nivel 4: Fracciones Simples",
+            problems: [
+                { question: "¿Cuánto es 3/4 + 1/4?", options: ["1", "1/2", "3/8", "4/8"], answer: "1" },
+                { question: "El T-Rex come 2/5 de su comida en la mañana y 1/5 en la tarde. ¿Qué fracción comió en total?", options: ["3/5", "2/25", "3/10", "1/5"], answer: "3/5" },
+                { question: "De un grupo de 10 raptores, 3 son machos. ¿Qué fracción representa a las hembras?", options: ["7/10", "3/10", "10/7", "10/3"], answer: "7/10" },
+                { question: "Si tienes 1/2 de una pizza y te comes la mitad de tu porción, ¿qué fracción de la pizza original comiste?", options: ["1/4", "1/2", "1/8", "1/1"], answer: "1/4" }
+            ]
+        },
+        {
+            name: "Nivel 5: Decimales",
+            problems: [
                 { question: "Si tienes 100 córdobas y gastas 25.50, ¿cuánto te queda?", options: ["74.50", "75.50", "74.00", "84.50"], answer: "74.50" },
                 { question: "Convierte 0.5 a fracción.", options: ["1/2", "1/5", "2/5", "1/4"], answer: "1/2" },
-                { question: "El T-Rex come 2/5 de su comida en la mañana y 1/5 en la tarde. ¿Qué fracción comió en total?", options: ["3/5", "2/25", "3/10", "1/5"], answer: "3/5" }
+                { question: "Suma 12.5 + 5.25", options: ["17.75", "17.50", "18.00", "17.25"], answer: "17.75" },
+                { question: "Un fósil mide 8.6 cm y otro 5.3 cm. ¿Cuál es la diferencia de longitud?", options: ["3.3 cm", "13.9 cm", "3.0 cm", "2.3 cm"], answer: "3.3 cm" }
             ]
         },
-        {
-            name: "Nivel 3: Geometría",
-             problems: [
-                { question: "Un corral rectangular para dinosaurios mide 20 metros de largo y 10 metros de ancho. ¿Cuál es su área?", options: ["200 m²", "60 m²", "30 m²", "2000 m²"], answer: "200 m²" },
-                { question: "Si el mismo corral mide 20m de largo y 10m de ancho, ¿cuál es su perímetro?", options: ["60 m", "200 m", "30 m", "100 m"], answer: "60 m" },
-                { question: "¿Cuántos grados tiene un ángulo recto?", options: ["90°", "180°", "45°", "360°"], answer: "90°" },
-                { question: "Un fósil circular tiene un diámetro de 10cm. ¿Cuál es su radio?", options: ["5 cm", "10 cm", "20 cm", "3.14 cm"], answer: "5 cm" }
-            ]
-        }
+        // ... aquí irían los niveles 6 al 25 ...
     ];
 
     // --- LÓGICA DE AUDIO ---
@@ -202,7 +224,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 loadSound('correct', 'correct.mp3');
                 loadSound('incorrect', 'incorrect.mp3');
                 loadSound('background', 'background_music.mp3', true).then(() => {
-                    playSound('background');
+                    if(!isMusicPlaying) playSound('background');
                 });
             }
             
@@ -232,8 +254,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function updatePlayerMarker() {
         // Position marker at the last unlocked level.
-        const targetLevel = Math.max(1, player.unlockedLevels);
-        const targetNode = document.getElementById(`level-node-${targetLevel}`);
+        const currentLevelNode = Math.min(player.unlockedLevels, levels.length);
+        const targetNode = document.getElementById(`level-node-${currentLevelNode}`);
         if (targetNode) {
             playerMarker.style.left = targetNode.style.left;
             playerMarker.style.top = targetNode.style.top;
@@ -257,6 +279,7 @@ document.addEventListener('DOMContentLoaded', () => {
         score = 0;
         correctAnswersInLevel = 0;
         correctStreak = 0;
+        questionsAskedInLevel = 0;
         scoreEl.textContent = score;
         
         endScreen.classList.add('hidden');
@@ -268,6 +291,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function startLevel() {
         const level = levels[currentLevelIndex];
         correctAnswersInLevel = 0;
+        questionsAskedInLevel = 0;
         levelTitleEl.textContent = level.name;
         
         currentProblemSet = [...level.problems];
@@ -283,13 +307,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function nextProblem() {
+        questionsAskedInLevel++;
         currentProblemIndex++;
-        if (currentProblemIndex >= currentProblemSet.length) {
-            // Repetir preguntas del nivel si se acaban
-            shuffleArray(currentProblemSet);
-            currentProblemIndex = 0;
+        
+        if (questionsAskedInLevel > QUESTIONS_PER_LEVEL) {
+             // This case should be handled by checkAnswer now, but as a fallback:
+            endLevel();
+            return;
         }
-
+        
         const problem = currentProblemSet[currentProblemIndex];
         
         updateDinoDisplay(); // Update dinosaur for new problem
@@ -317,8 +343,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const buttons = answerOptionsEl.querySelectorAll('.answer-btn');
         buttons.forEach(button => button.disabled = true);
         
-        if (selected === correct) {
-            score += 25; // Changed score per question
+        let isCorrect = selected === correct;
+
+        if (isCorrect) {
+            score += 25;
             correctAnswersInLevel++;
             correctStreak++;
             let feedbackMsg = "¡Correcto! +25 Monedas";
@@ -336,11 +364,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 origin: { y: 0.6 }
             });
             showFeedback(feedbackMsg, true);
-            
-            // Check for level completion after a correct answer
-            if (correctAnswersInLevel >= QUESTIONS_PER_LEVEL) {
-                setTimeout(endLevel, 2000);
-            }
         } else {
             correctStreak = 0;
             showFeedback(`Incorrecto. La respuesta era ${correct}`, false);
@@ -349,13 +372,13 @@ document.addEventListener('DOMContentLoaded', () => {
         scoreEl.textContent = score;
         
         setTimeout(() => {
-            if (correctAnswersInLevel < QUESTIONS_PER_LEVEL) {
+            if (questionsAskedInLevel < QUESTIONS_PER_LEVEL) {
                 nextButton.style.display = 'block';
+                answerOptionsEl.style.display = 'none';
             } else {
-                 nextButton.style.display = 'none'; // Hide button at end of level
+                endLevel();
             }
-            answerOptionsEl.style.display = 'none';
-        }, 1500); // Espera antes de mostrar el botón de siguiente
+        }, 1500);
     }
 
     function createRewardAnimation(type, count) {
@@ -390,9 +413,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function endLevel() {
-        const levelPassed = score >= MIN_SCORE_TO_PASS;
+        const scorePercentage = (correctAnswersInLevel / QUESTIONS_PER_LEVEL) * 100;
+        const levelPassed = scorePercentage >= (MIN_SCORE_TO_PASS / (QUESTIONS_PER_LEVEL * 25)) * 100; // Simplified to a percentage check
+
         levelEndTitle.textContent = `Fin del ${levels[currentLevelIndex].name}`;
-        levelEndScore.textContent = score;
+        levelEndScore.textContent = `${correctAnswersInLevel} de ${QUESTIONS_PER_LEVEL} correctas (${Math.round(scorePercentage)}%)`;
 
         if (levelPassed) {
             levelEndMessage.textContent = "¡Felicidades! Has superado el nivel y desbloqueado el siguiente.";
@@ -413,7 +438,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 };
             }
         } else {
-            levelEndMessage.textContent = `Necesitas ${MIN_SCORE_TO_PASS} puntos para avanzar. ¡Inténtalo de nuevo para mejorar!`;
+            levelEndMessage.textContent = `Necesitas al menos un ${Math.round((MIN_SCORE_TO_PASS / 100) * 100)}% para avanzar. ¡Inténtalo de nuevo para mejorar!`;
             levelEndNextButton.onclick = () => {
                 levelEndModal.classList.add('hidden');
                 showLevelSelect(); // Go back to map to retry
